@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi8.Dto.Autor;
 using WebApi8.Models;
 using WebApi8.Services.Autor;
 
@@ -20,6 +22,42 @@ namespace WebApi8.Controllers
         {
             var autores = await _autorInterface.LitarAutores();
             return Ok(autores);
+        }
+
+        [HttpGet("BuscarAutorPorId/{idAutor}")]
+        public async Task<ActionResult<ResponseModel<AutorModel>>> BuscarAutorPorId(int idAutor)
+        {
+            var autor = await _autorInterface.BuscarAutorPorId(idAutor);
+            return Ok(autor);
+        }
+
+        [HttpGet("BuscarAutorPorIdLivro/{idLivro}")]
+        public async Task<ActionResult<ResponseModel<AutorModel>>> BuscarAutorPorIdLivro(int idLivro)
+        {
+            var autor = await _autorInterface.BuscarAutorPorIdLivro(idLivro);
+            return Ok(autor);
+        }
+
+        [HttpPost("CriarAutor")]
+        public async Task<ActionResult<ResponseModel<AutorModel>>> CriarAutor(AutorCriacaoDto autorCriacaoDto)
+        {
+            var autores = await _autorInterface.CriarAutor(autorCriacaoDto);
+            return Ok(autores);
+        }
+
+        [HttpPut("EditarAutor")]
+        public async Task<ActionResult<ResponseModel<List<AutorModel>>>> EditarAutor(AutorEdicaoDto autorEdicaoDto)
+        {
+            var autores = await _autorInterface.EditarAutor(autorEdicaoDto);
+            return Ok(autores);
+        }
+
+
+        [HttpPost("ExcluirAutor")]
+        public async Task<ActionResult<ResponseModel<List<AutorModel>>>> ExcluirAutor(int idAutor)
+        {
+            var autor = await _autorInterface.ExcluirAutor(idAutor);
+            return Ok(autor);
         }
     }
 }

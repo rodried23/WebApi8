@@ -8,6 +8,6 @@ namespace WebApi8.Models
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         [JsonIgnore]
-        public ICollection<LivrosModel> Livros { get; set; }
+        public ICollection<LivroModel> Livros { get; set; }
     }
 }
