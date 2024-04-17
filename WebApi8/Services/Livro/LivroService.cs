@@ -81,7 +81,7 @@ namespace WebApi8.Services.Livro
             try
             {
                 var autor = await _context.Autores
-                    .FirstOrDefaultAsync(autorBanco => autorBanco.Id == livroCriacaoDto.Id);
+                    .FirstOrDefaultAsync(autorBanco => autorBanco.Id == livroCriacaoDto.Autor.Id);
 
                 if(autor == null)
                 {
@@ -125,7 +125,7 @@ namespace WebApi8.Services.Livro
                     .FirstOrDefaultAsync(livroBanco => livroBanco.Id == livroEdicaoDto.Id);
 
                 var autor = await _context.Autores
-                    .FirstOrDefaultAsync(autorBanco => autorBanco.Id == livroEdicaoDto.Id);
+                    .FirstOrDefaultAsync(autorBanco => autorBanco.Id == livroEdicaoDto.Autor.Id);
 
                 if (autor == null)
                 {
@@ -166,7 +166,9 @@ namespace WebApi8.Services.Livro
 
             try
             {
-                var livro = await _context.Livros.FirstOrDefaultAsync(livroBanco => livroBanco.Id == idLivro);
+                var livro = await _context.Livros
+                    .Include(a => a.Autor)
+                    .FirstOrDefaultAsync(livroBanco => livroBanco.Id == idLivro);
 
                 if (livro == null)
                 {
@@ -177,7 +179,9 @@ namespace WebApi8.Services.Livro
                 _context.Remove(livro);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = await _context.Livros.ToListAsync();
+                resposta.Dados = await _context.Livros
+                    .Include(a => a.Autor)
+                    .ToListAsync();
                 resposta.Mensagem = "Livro removido com sucesso!";
 
                 return resposta;

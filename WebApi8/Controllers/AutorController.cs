@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using WebApi8.Dto.Autor;
 using WebApi8.Models;
@@ -53,7 +52,7 @@ namespace WebApi8.Controllers
         }
 
 
-        [HttpPost("ExcluirAutor")]
+        [HttpDelete("ExcluirAutor")]
         public async Task<ActionResult<ResponseModel<List<AutorModel>>>> ExcluirAutor(int idAutor)
         {
             var autor = await _autorInterface.ExcluirAutor(idAutor);

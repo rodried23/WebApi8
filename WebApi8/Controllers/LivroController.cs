@@ -54,7 +54,7 @@ namespace WebApi8.Controllers
         }
 
 
-        [HttpPost("ExcluirLivro")]
+        [HttpDelete("ExcluirLivro")]
         public async Task<ActionResult<ResponseModel<List<AutorModel>>>> ExcluirLivro(int idLivro)
         {
             var livro = await _livroInterface.ExcluirLivro(idLivro);
