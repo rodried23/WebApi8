@@ -36,12 +36,12 @@ namespace WebApi8.Migrations
                     b.Property<DateTime>("DataInicial")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdPessoaId")
+                    b.Property<int>("PessoaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdPessoaId");
+                    b.HasIndex("PessoaId");
 
                     b.ToTable("AluguelLivro");
                 });
@@ -108,13 +108,13 @@ namespace WebApi8.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AluguelLivroModelId")
+                    b.Property<int?>("AluguelLivroId")
                         .HasColumnType("int");
 
                     b.Property<int?>("AutorId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Se_Disponivel")
+                    b.Property<bool>("Se_Disponivel")
                         .HasColumnType("bit");
 
                     b.Property<string>("Titulo")
@@ -122,14 +122,14 @@ namespace WebApi8.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AluguelLivroModelId");
+                    b.HasIndex("AluguelLivroId");
 
                     b.HasIndex("AutorId");
 
                     b.ToTable("Livros");
                 });
 
-            modelBuilder.Entity("WebApi8.Models.PessoalModel", b =>
+            modelBuilder.Entity("WebApi8.Models.PessoaModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,20 +159,20 @@ namespace WebApi8.Migrations
 
             modelBuilder.Entity("WebApi8.Models.AluguelLivroModel", b =>
                 {
-                    b.HasOne("WebApi8.Models.PessoalModel", "IdPessoa")
+                    b.HasOne("WebApi8.Models.PessoaModel", "PessoaId")
                         .WithMany()
-                        .HasForeignKey("IdPessoaId")
+                        .HasForeignKey("PessoaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("IdPessoa");
+                    b.Navigation("PessoaId");
                 });
 
             modelBuilder.Entity("WebApi8.Models.LivroModel", b =>
                 {
                     b.HasOne("WebApi8.Models.AluguelLivroModel", null)
-                        .WithMany("IdLivro")
-                        .HasForeignKey("AluguelLivroModelId");
+                        .WithMany("LivroId")
+                        .HasForeignKey("AluguelLivroId");
 
                     b.HasOne("WebApi8.Models.AutorModel", "Autor")
                         .WithMany("Livros")
@@ -183,7 +183,7 @@ namespace WebApi8.Migrations
 
             modelBuilder.Entity("WebApi8.Models.AluguelLivroModel", b =>
                 {
-                    b.Navigation("IdLivro");
+                    b.Navigation("LivroId");
                 });
 
             modelBuilder.Entity("WebApi8.Models.AutorModel", b =>

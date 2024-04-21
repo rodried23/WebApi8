@@ -12,8 +12,8 @@ using WebApi8.Data;
 namespace WebApi8.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240420222105_adicionandoModelAluguelLivro")]
-    partial class adicionandoModelAluguelLivro
+    [Migration("20240421014751_AttBD")]
+    partial class AttBD
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,12 +39,12 @@ namespace WebApi8.Migrations
                     b.Property<DateTime>("DataInicial")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdPessoaId")
+                    b.Property<int>("PessoaIdId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdPessoaId");
+                    b.HasIndex("PessoaIdId");
 
                     b.ToTable("AluguelLivro");
                 });
@@ -117,7 +117,7 @@ namespace WebApi8.Migrations
                     b.Property<int?>("AutorId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Se_Disponivel")
+                    b.Property<bool>("Se_Disponivel")
                         .HasColumnType("bit");
 
                     b.Property<string>("Titulo")
@@ -132,7 +132,7 @@ namespace WebApi8.Migrations
                     b.ToTable("Livros");
                 });
 
-            modelBuilder.Entity("WebApi8.Models.PessoalModel", b =>
+            modelBuilder.Entity("WebApi8.Models.PessoaModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,19 +162,19 @@ namespace WebApi8.Migrations
 
             modelBuilder.Entity("WebApi8.Models.AluguelLivroModel", b =>
                 {
-                    b.HasOne("WebApi8.Models.PessoalModel", "IdPessoa")
+                    b.HasOne("WebApi8.Models.PessoaModel", "PessoaId")
                         .WithMany()
-                        .HasForeignKey("IdPessoaId")
+                        .HasForeignKey("PessoaIdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("IdPessoa");
+                    b.Navigation("PessoaId");
                 });
 
             modelBuilder.Entity("WebApi8.Models.LivroModel", b =>
                 {
                     b.HasOne("WebApi8.Models.AluguelLivroModel", null)
-                        .WithMany("IdLivro")
+                        .WithMany("LivroId")
                         .HasForeignKey("AluguelLivroModelId");
 
                     b.HasOne("WebApi8.Models.AutorModel", "Autor")
@@ -186,7 +186,7 @@ namespace WebApi8.Migrations
 
             modelBuilder.Entity("WebApi8.Models.AluguelLivroModel", b =>
                 {
-                    b.Navigation("IdLivro");
+                    b.Navigation("LivroId");
                 });
 
             modelBuilder.Entity("WebApi8.Models.AutorModel", b =>

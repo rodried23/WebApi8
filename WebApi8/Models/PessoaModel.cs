@@ -1,6 +1,6 @@
 ﻿namespace WebApi8.Models
 {
-    public class PessoalModel
+    public class PessoaModel
     {
         public int Id { get; set; }
         public string Nome { get; set; }
