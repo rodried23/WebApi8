@@ -7,5 +7,7 @@
         public string Sobrenome { get; set; }
         public int Idade { get; set; }
         public string Genero { get; set; }
+        public string CPF { get; set; }
+
     }
 }
