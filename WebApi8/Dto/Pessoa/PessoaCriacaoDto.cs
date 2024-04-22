@@ -1,8 +1,7 @@
-﻿namespace WebApi8.Models
+﻿namespace WebApi8.Dto.Pessoa
 {
-    public class PessoaModel
+    public class PessoaCriacaoDto
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public int Idade { get; set; }
