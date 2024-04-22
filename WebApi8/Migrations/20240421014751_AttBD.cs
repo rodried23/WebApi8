@@ -26,7 +26,7 @@ namespace WebApi8.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Endereco",
+                name: "Enderecos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -43,7 +43,7 @@ namespace WebApi8.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pessoa",
+                name: "Pessoas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -56,10 +56,30 @@ namespace WebApi8.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pessoa", x => x.Id);
+                });            
+
+            migrationBuilder.CreateTable(
+                name: "Livros",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Se_Disponivel = table.Column<bool>(type: "bit", nullable: false),
+                    AutorId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Livros", x => x.Id);                    
+                    table.ForeignKey(
+                        name: "FK_Livros_Autores_AutorId",
+                        column: x => x.AutorId,
+                        principalTable: "Autores",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "AluguelLivro",
+                name: "AluguelLivros",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -75,46 +95,27 @@ namespace WebApi8.Migrations
                     table.ForeignKey(
                         name: "FK_AluguelLivro_Pessoa_PessoaId",
                         column: x => x.PessoaId,
-                        principalTable: "Pessoa",
+                        principalTable: "Pessoas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AluguelLivro_Livro_LivroId",
+                        column: x => x.LivroId,
+                        principalTable: "Livros",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Livros",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Se_Disponivel = table.Column<bool>(type: "bit", nullable: false),
-                    AutorId = table.Column<int>(type: "int", nullable: true),
-                    AluguelLivroId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Livros", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Livros_AluguelLivro_AluguelLivroId",
-                        column: x => x.AluguelLivroId,
-                        principalTable: "AluguelLivro",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Livros_Autores_AutorId",
-                        column: x => x.AutorId,
-                        principalTable: "Autores",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AluguelLivro_PessoaId",
-                table: "AluguelLivro",
+                table: "AluguelLivros",
                 column: "PessoaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Livros_AluguelLivroId",
-                table: "Livros",
-                column: "AluguelLivroId");
+               name: "IX_AluguelLivro_LivroId",
+               table: "AluguelLivros",
+               column: "LivroId");
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_Livros_AutorId",
@@ -126,19 +127,19 @@ namespace WebApi8.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Endereco");
+                name: "Enderecos");
 
             migrationBuilder.DropTable(
                 name: "Livros");
 
             migrationBuilder.DropTable(
-                name: "AluguelLivro");
+                name: "AluguelLivros");
 
             migrationBuilder.DropTable(
                 name: "Autores");
 
             migrationBuilder.DropTable(
-                name: "Pessoa");
+                name: "Pessoas");
         }
     }
 }
