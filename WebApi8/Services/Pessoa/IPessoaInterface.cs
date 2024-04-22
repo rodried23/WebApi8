@@ -11,6 +11,6 @@ namespace WebApi8.Services.Pessoa
         Task<ResponseModel<List<PessoaModel>>> ExcluirCadastroPessoa(int idPessoa);
         Task<ResponseModel<List<PessoaModel>>> ListarPessoas();
         Task<ResponseModel<PessoaModel>> BuscarPessoaPorId(int idPessoa);
-        Task<ResponseModel<List<PessoaModel>>> BuscarPessoaPorCpf(string cpfPessoa);
+        Task<ResponseModel<PessoaModel>> BuscarPessoaPorCpf(string cpfPessoa);
     }
 }
