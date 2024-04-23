@@ -1,4 +1,6 @@
-﻿namespace WebApi8.Models
+﻿using System.Text.Json.Serialization;
+
+namespace WebApi8.Models
 {
     public class LivroModel
     {
@@ -6,5 +8,7 @@
         public string? Titulo { get; set; }
         public bool Se_Disponivel { get; set; }
         public AutorModel? Autor { get; set; }
+        [JsonIgnore]
+        public AluguelLivroModel AluguelLivro { get; set; }
     }
 }

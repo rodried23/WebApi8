@@ -93,8 +93,9 @@ namespace WebApi8.Services.Pessoa
                     Genero = pessoaCriacaoDto.Genero,
                     CPF = pessoaCriacaoDto.CPF
                 };
-
+                
                 await _context.Pessoas.AddAsync(pessoa);
+                await _context.SaveChangesAsync();
 
                 resposta.Dados = await _context.Pessoas.ToListAsync();
                 resposta.Mensagem = "Pessoa cadastrada com sucesso!";
