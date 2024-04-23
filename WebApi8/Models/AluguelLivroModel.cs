@@ -8,7 +8,7 @@ namespace WebApi8.Models
         public int Id { get; set; }
         public DateTime DataInicial { get; set; }
         public DateTime DataDevolucao { get; set; }
-        public ICollection<LivroModel> Livro { get; set; }
         public PessoaModel Pessoa { get; set; }
+        public LivroModel Livro { get; set; }
     }
 }
